@@ -1,24 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import 'babel-es6-polyfill/polyfill';
 
-const Name = React.createClass({
-    render: function() {
-        return (
-            <span>{this.props.name}</span>
-        );
+export default class Hello {
+    constructor(message = '') {
+        this.message = message
     }
-});
-const HelloWorld = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <h1>Hello, world!</h1>
-                <Name name="Test" />
-            </div>
-        );
+
+    say() {
+        console.log(this.message)
     }
-});
-ReactDOM.render(
-    <HelloWorld />,
-    document.getElementById('content')
-);
+
+    later() {
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, 2000)
+        })
+    }
+}
+
+var hello = new Hello('Hello');
+hello.say();
+hello.later().then(() => hello.say());
